@@ -76,6 +76,22 @@
             }
         }
     })
+
+        // Function to remove the Flowise branding
+    function removeFlowiseBranding() {
+        const branding = document.querySelector('.lite-badge');
+        if (branding) {
+            branding.style.display = 'none';
+            clearInterval(brandingRemovalInterval);
+        }
+    }
+
+    // Check for the branding every second and remove it once found
+    const brandingRemovalInterval = setInterval(removeFlowiseBranding, 1000);
+</script>
+
+</body>
+</html>
 </script>
 
 </body>
