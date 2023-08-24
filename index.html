@@ -6,7 +6,12 @@
     <title>My Chatbot</title>
     <style>
         body {
-            background-image: url('https://iamseancorcoran.github.io/conchat/Rudy.jpeg');
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('https://iamseancorcoran.github.io/conchat/rudymugshot.jpeg');
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center center;
@@ -15,7 +20,6 @@
             font-size: 48px;
             color: red;
             text-align: center;
-            margin-top: 50px;
             font-weight: bold;
         }
     </style>
@@ -52,13 +56,13 @@
                     backgroundColor: "#f7f8ff",
                     textColor: "#303235",
                     showAvatar: true,
-                    avatarSrc: "https://raw.githubusercontent.com/zahidkhawaja/langchain-chat-nextjs/main/public/parroticon.png",
+                    avatarSrc: "https://raw.githubusercontent.com/iamseancorcoran/conchat/main/rudy%20mugshot.png",
                 },
                 userMessage: {
                     backgroundColor: "#3B81F6",
                     textColor: "#ffffff",
                     showAvatar: true,
-                    avatarSrc: "https://raw.githubusercontent.com/zahidkhawaja/langchain-chat-nextjs/main/public/usericon.png",
+                    avatarSrc: "https://raw.githubusercontent.com/iamseancorcoran/conchat/main/rudy3.jpeg",
                 },
                 textInput: {
                     placeholder: "Type your question",
@@ -69,11 +73,8 @@
             }
         }
     })
-
-    // Attempt to open the chat bubble automatically (Note: This is a guess; one or both lines might cause an error if the methods don't exist)
-    Chatbot.open();
-    Chatbot.show();
 </script>
 
 </body>
 </html>
+
