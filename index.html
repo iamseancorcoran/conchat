@@ -72,7 +72,7 @@
             displayMessage('user', message);
             this.value = '';
             
-            // Call to Flowise API
+            // Mockup Flowise API call
             getBotResponse(message).then(response => {
                 displayMessage('bot', response);
             });
@@ -86,24 +86,24 @@
         document.querySelector('.messages').appendChild(messageDiv);
     }
 
+    // Mockup function for Flowise API - adjust this according to the actual API spec
     function getBotResponse(userMessage) {
-        return fetch('YOUR_ENDPOINT_URL_HERE', {
+        // Example: Using Fetch to make an API call
+        return fetch('http://localhost:3000/api/chat', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + 'gt9m67BJ4VraXgWxK4rjZAIc6/ZCkdQnL7aE6k2Sfns='
             },
-            body: JSON.stringify({ 
-                message: userMessage 
-            }),
+            body: JSON.stringify({ message: userMessage }),
         })
         .then(response => response.json())
         .then(data => {
-            return data.botResponse; 
+            return data.botResponse; // Adjust this according to the actual API response structure
         });
     }
 </script>
 
 </body>
 </html>
+
 
