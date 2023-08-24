@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rudy's at it</title>
+    <title>Chat with Rudy</title>
     <style>
         body {
             margin: 0;
@@ -19,11 +19,40 @@
         .banner-title {
             font-size: 48px;
             color: red;
-            text-align: bottom;
+            text-align: center;
             font-weight: bold;
         }
-        .lite-badge {
-            display: none !important;
+        .chatbot-window {
+            width: 400px;
+            height: 500px;
+            border: 1px solid #ccc;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+        }
+        .messages {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+        }
+        .user-input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-top: 1px solid #ccc;
+        }
+        .user {
+            color: blue;
+            text-align: right;
+            padding: 5px;
+        }
+        .bot {
+            color: green;
+            text-align: left;
+            padding: 5px;
         }
     </style>
 </head>
@@ -31,71 +60,50 @@
 
 <div class="banner-title">c'mon honey, talk to Rudy</div>
 
-<script type="module">
-    import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
-    Chatbot.init({
-        chatflowid: "e44e3578-d011-4788-9794-fa1d4a52b4a6",
-        apiHost: "http://localhost:3000",
-        chatflowConfig: {
-            // topK: 2
-        },
-        theme: {
-            button: {
-                backgroundColor: "#3B81F6",
-                right: 20,
-                bottom: 20,
-                size: "large",
-                iconColor: "white",
-                customIconSrc: "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/google-messages.svg",
-            },
-            chatWindow: {
-                welcomeMessage: "jus’t can’t get enough of Rudy eh! C’mon then, wha da ya want?",
-                backgroundColor: "#ffffff",
-                height: 700,
-                width: 400,
-                fontSize: 16,
-                poweredByTextColor: "#303235",
-                botMessage: {
-                    backgroundColor: "#f7f8ff",
-                    textColor: "#303235",
-                    showAvatar: true,
-                    avatarSrc: "https://raw.githubusercontent.com/iamseancorcoran/conchat/main/rudy%20mugshot.png",
-                },
-                userMessage: {
-                    backgroundColor: "#3B81F6",
-                    textColor: "#ffffff",
-                    showAvatar: true,
-                    avatarSrc: "https://raw.githubusercontent.com/iamseancorcoran/conchat/main/rudy3.jpeg",
-                },
-                textInput: {
-                    placeholder: "Type your question",
-                    backgroundColor: "#ffffff",
-                    textColor: "#303235",
-                    sendButtonColor: "#3B81F6",
-                }
-            }
+<div class="chatbot-window">
+    <div class="messages"></div>
+    <input class="user-input" placeholder="Type your message..." />
+</div>
+
+<script>
+    document.querySelector('.user-input').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && this.value.trim() !== '') {
+            const message = this.value;
+            displayMessage('user', message);
+            this.value = '';
+            
+            // Call to Flowise API
+            getBotResponse(message).then(response => {
+                displayMessage('bot', response);
+            });
         }
-    })
+    });
 
-// Function to remove the Flowise branding
-function removeFlowiseBranding() {
-    const branding = document.querySelector('.lite-badge');
-    if (branding) {
-        branding.style.display = 'none';
+    function displayMessage(sender, message) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = sender;
+        messageDiv.textContent = message;
+        document.querySelector('.messages').appendChild(messageDiv);
     }
-}
 
-// Create a Mutation Observer to watch for changes in the body of the page
-const observer = new MutationObserver(removeFlowiseBranding);
-
-// Start observing the document with the configured parameters
-observer.observe(document.body, { childList: true, subtree: true });
-
+    function getBotResponse(userMessage) {
+        return fetch('YOUR_ENDPOINT_URL_HERE', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + 'gt9m67BJ4VraXgWxK4rjZAIc6/ZCkdQnL7aE6k2Sfns='
+            },
+            body: JSON.stringify({ 
+                message: userMessage 
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            return data.botResponse; 
+        });
+    }
 </script>
 
 </body>
 </html>
-</script>
 
-</body>
-</html>
