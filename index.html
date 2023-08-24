@@ -77,17 +77,20 @@
         }
     })
 
-        // Function to remove the Flowise branding
-    function removeFlowiseBranding() {
-        const branding = document.querySelector('.lite-badge');
-        if (branding) {
-            branding.style.display = 'none';
-            clearInterval(brandingRemovalInterval);
-        }
+// Function to remove the Flowise branding
+function removeFlowiseBranding() {
+    const branding = document.querySelector('.lite-badge');
+    if (branding) {
+        branding.style.display = 'none';
     }
+}
 
-    // Check for the branding every second and remove it once found
-    const brandingRemovalInterval = setInterval(removeFlowiseBranding, 1000);
+// Create a Mutation Observer to watch for changes in the body of the page
+const observer = new MutationObserver(removeFlowiseBranding);
+
+// Start observing the document with the configured parameters
+observer.observe(document.body, { childList: true, subtree: true });
+
 </script>
 
 </body>
